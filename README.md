@@ -6,6 +6,8 @@ It's a simple version of *draughts game*; in Italian it's called "dama".
 
 All the game and graphics is in one html file (html, css & javascript).
 
+Try it! : [dama.html](http://htmlpreview.github.io/?https://github.com/pbaruffaldix/dama-js/blob/master/dama.html)
+
 ![Screenshot.png](Screenshot.png)
 ## features
 
