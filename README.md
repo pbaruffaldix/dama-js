@@ -6,7 +6,7 @@ It's a simple version of *draughts game*; in Italian it's called "dama".
 
 All the game and graphics is in one html file (html, css & javascript).
 
-
+![Screenshot.png](Screenshot.png)
 ## features
 
 - Compatiblity with most recent versions of Firefox, Chrome, Opera and Safari
