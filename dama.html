@@ -1,0 +1,382 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+<style>
+	#modelli {border:solid 1px #CCCCCC;width:100px;height:200px;position:absolute;display:none;}
+	.CasellaStile1, .CasellaStile2 {border: solid 1px #000000;
+	width:12vmin;height:12vmin;
+	maargin:0;padding:0;
+	position:absolute;display:block;
+	box-shadow:
+		5px 5px 5px rgba(50,50,50,0.5) inset,
+		-5px -5px 5px rgba(200,200,200,0.5) inset
+	;
+	}
+	.CasellaStile1 {background-color:#AAAAAA;}
+	.CasellaStile2 {background-color:#FFFFFF;}
+	#area_gioco {width:99vmin;height:99vmin;border: solid 1px blue;position:absolute;top:200px;}
+	#info {position:absolute;top:200px;left:20px;z-indez:-100;}
+	.PedinaStile0, .PedinaStile1, .PedoneStile0, .PedoneStile1{
+		width:8vmin;height:8vmin;
+		margin-top:2vmin;
+		margin-left:2vmin;
+		text-align:center;
+		border-radius: 3.75rem;
+		line-height: 2.5rem;
+		font-size: 4vmin;
+		border: 1px solid #000000;
+		cursor:pointer;
+		}
+	.PedinaStile0, .PedoneStile0{
+		background-color:#FF4444;
+		box-shadow: 0 1rem 1.25rem 0 rgba(22,75,195,0.50),
+			0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset,
+			0 0.75rem 0.5rem rgba(255,255,255, 0.4) inset,
+			0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
+	}
+	.PedinaStile1, .PedoneStile1 {
+		background-color:#00CCCC;
+		box-shadow: 0 1rem 1.25rem 0 rgba(22,75,195,0.50),
+			0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset,
+			0 0.75rem 0.5rem rgba(255,255,255, 0.4) inset,
+			0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
+	}
+
+	 .PedoneStile0, .PedoneStile1 {border-radius:20px;font-size: 8vmin;}
+	select {font-size:40px;}
+
+	body {animation: anim2 60s infinite;}
+@keyframes anim1 {
+   0% {transform:  rotate(0deg) scaleX(1.00) scaleY(1.00);}
+  50% {transform:  rotate(+60deg) scaleX(0.80) scaleY(0.80);}
+  100% {transform:  rotate(+359deg) scaleX(1.00) scaleY(1.00);}
+
+}
+#messagebox {position:absolute;top:35vh;left:0;
+font-size:1px;
+font-family:sans-serif;
+opacity:0;width:0px;
+}
+@keyframes anim2 {
+0% { background: linear-gradient(to bottom, #40405c 0%,#6f71aa 80%,#8a76ab 100%); }
+25% { background: linear-gradient(to bottom, #4a4969 0%,#7072ab 50%,#cd82a0 100%); }
+50% { background: linear-gradient(to bottom, #757abf 0%,#8583be 60%,#eab0d1 100%); }
+100% { background: linear-gradient(to bottom, #82addb 0%,#ebb2b1 100%); }
+}
+@keyframes anim3 {
+	0% { opacity:0;color:#000000;text-shadow: 0px 0px #444400, 0px 0px #000000;left:0;font-size:10vh;width:100vh;}
+	50% { opacity:1;color:#880000;text-shadow: 0px -20px #888800, 0px 20px #666600;left:50px;font-size:10vh;width:50vh;}
+	100% { opacity:0;color:#0000FF;text-shadow: 0px 0px #FFFF00; 0px 0px #CCCC00;left:100px;font-size:1px;width:0vh;}
+}
+
+@keyframes anim4 {
+	0% { opacity:0;color:#000000;text-shadow: 0px 0px #444400, 0px 0px #000000;left:0;font-size:8vh;width:100vh;}
+	50% { opacity:1;color:#000088;text-shadow: 0px -20px #888800, 0px 20px #0000FF;left:20px;font-size:8vh;width:50vh;}
+	100% { opacity:0;color:#0000FF;text-shadow: 0px 0px #FFFF00; 0px 0px #CCCCFF;left:50px;font-size:1px;width:0vh;}
+}
+
+.sky-gradient-05 { background: linear-gradient(to bottom, #40405c 0%,#6f71aa 80%,#8a76ab 100%); }
+.sky-gradient-06 { background: linear-gradient(to bottom, #4a4969 0%,#7072ab 50%,#cd82a0 100%); }
+.sky-gradient-07 { background: linear-gradient(to bottom, #757abf 0%,#8583be 60%,#eab0d1 100%); }
+.sky-gradient-08 { background: linear-gradient(to bottom, #82addb 0%,#ebb2b1 100%); }
+	</style>
+</head>
+<body>
+<h1>Dama</h1>
+<i>ver 0.4 Paolo Baruffaldi, 2020-04-13</i>
+<div>
+	<form>
+	Giocatore A:<select name="simboli0" id="scelta_simbolo0">
+		<option value="🍝">🍝</option>
+	<option value="🍕">🍕</option>
+	<option value="💣">💣</option>
+	<option value="🧨">🧨</option>
+	<option value="🂡">🂡</option>
+	<option value="🂱">🂱</option>
+	<option value="🔧">🔧</option>
+	<option value="⛏">⛏</option>
+	<option value="🚀" selected>🚀</option>
+	<option value="🛸">🛸</option>
+	<option value="🐱">🐱</option>
+	<option value="🐭">🐭</option>
+	<option value="🦊">🦊</option>
+	<option value="🐯">🐯</option>
+	</select>
+	Giocatore B:<select name="simboli1" id="scelta_simbolo1">
+	<option value="🍝">🍝</option>
+	<option value="🍕">🍕</option>
+	<option value="💣">💣</option>
+	<option value="🧨">🧨</option>
+	<option value="🂡">🂡</option>
+	<option value="🂱">🂱</option>
+	<option value="🔧">🔧</option>
+	<option value="⛏">⛏</option>
+	<option value="🚀">🚀</option>
+	<option value="🛸" selected>🛸</option>
+	<option value="🐱">🐱</option>
+	<option value="🐭">🐭</option>
+	<option value="🦊">🦊</option>
+	<option value="🐯">🐯</option>
+	</select>
+	<input type = 'button' value="inizia" onclick="main()" style="font-size:30px;">
+	</form>
+</div>
+<div id="area_gioco"></div>
+<script language="JavaScript1.5">
+
+var frasi_mangio = ["mmm...","buona!","una di meno", "grazie!", "ho quasi vinto!"];
+
+var area_gioco = document.getElementById("area_gioco");
+var simboli = [];
+var mancano = [12,12];
+function main(){
+	mancano = [12,12];
+	messaggio("nuova partita!");
+	document.getElementById("area_gioco").innerHTML="";
+	document.getElementById("info").style.visibility="hidden";
+	simboli = [
+		document.forms[0].simboli0.value,
+		document.forms[0].simboli1.value
+		];
+	disegna_scacchiera();
+	var giocatori = [
+		[0,0,3],
+		[1,5,8]
+	];
+	init_pedine(giocatori[0]);
+	init_pedine(giocatori[1]);
+	}
+function disegna_scacchiera() {
+	var j = document.getElementById("casella_es");
+	size_x = area_gioco.getBoundingClientRect().width/8;
+	size_y = area_gioco.getBoundingClientRect().height/8;
+	size = Math.min(size_x,size_y);
+	console.log(size_x);
+	for (var y = 0;y<8;y++){
+		for (var x = 0;x<8;x++){
+			var k = j.cloneNode();
+			k.setAttribute('id','casella_'+x+"_"+y);
+			if ((x+y) % 2){
+				k.setAttribute('class','CasellaStile2');
+				}
+
+			k.style.top = size * y;
+			k.style.left = size * x;
+			area_gioco.append(k);
+			}
+		}
+	}
+function init_pedine(giocatore) {
+	var n = 0;
+	var mod1 = document.getElementById("pedina_es");
+	for (var y = giocatore[1]; y<giocatore[2]; y++){
+		for (var x = 0; x<8; x++){
+			if ((x+y)% 2 == 0) {
+				nuova = mod1.cloneNode();
+				nuova.id='pedina_'+giocatore[0]+'_'+ n;
+				nuova.innerHTML = simboli[giocatore[0]];
+				document.getElementById('casella_'+x+"_"+y).appendChild(nuova);
+				n += 1;
+				if (giocatore[0] == 1)
+					nuova.setAttribute('class','PedinaStile1');
+				}
+			}
+		}
+	}
+function info_of(elem1){
+	if ((elem1.className == 'PedinaStile0') || (elem1.className == 'PedinaStile1')){
+		d = {"tipo":"pedina", "giocatore":Number(elem1.id[7]), "n":elem1.id[9], "x":Number(elem1.parentNode.id[8]), "y":Number(elem1.parentNode.id[10])};
+		}
+	else if ((elem1.className == 'PedoneStile0') || (elem1.className == 'PedoneStile1')){
+		d = {"tipo":"pedone", "giocatore":Number(elem1.id[7]), "n":elem1.id[9], "x":Number(elem1.parentNode.id[8]), "y":Number(elem1.parentNode.id[10])};
+		}
+	else {
+		d = {"tipo":"casella", "x":Number(elem1.id[8]),"y":Number(elem1.id[10])};
+		if (elem1.getElementsByTagName("div").length > 0){
+			contenuto = info_of(elem1.getElementsByTagName("div")[0]);
+			d["giocatore"] = contenuto['giocatore'];
+			d["contiene"] = contenuto['tipo'];
+			}
+		else {d["giocatore"] = "#";}
+		}
+	return d;
+	}
+/* Interazione */
+var pedina_focus = null;
+var id_pedina_che_ha_mangiato = null;
+var tocca_a = 0;
+
+function scelta_pedina(elem1){
+	if (pedina_focus != null) {
+		pedina_focus.style.animation = 'none';
+		}
+	pedina_focus = elem1;
+	pedina_focus.style.animation = "anim1 4s infinite";
+	console.log("pedina_focus = " +pedina_focus.id);
+	}
+
+function scelta_casella(elem1){
+	if (elem1 == pedina_focus.parentNode){
+		return false;
+		}
+	casella_focus = elem1;
+	console.log("casella_focus = " +pedina_focus.id);
+	if (pedina_focus != null) {
+		if (mossa_valida() == true) {
+			casella_focus.appendChild(pedina_focus);
+			pedina_focus.style.animation = 'none';
+			}
+		}
+	pedina_focus = null;
+	casella_focus = null;
+	}
+function errore(msg){
+	console.log("errore :"+msg);
+	messaggio(msg, "errore");
+	}
+function messaggio(msg, msg_stile){
+	el1 = document.getElementById('messagebox');
+	el1.style.animation = 'none';
+  	el1.offsetHeight;
+  	if (msg_stile == "errore"){
+  		el1.innerHTML=msg.toUpperCase();
+  		el1.style.animation = "anim3 4s 1";
+  		}
+  	else if (msg_stile == 'mangio') {
+  		el1.innerHTML= simboli[tocca_a]+ ":" + msg;
+  		el1.style.animation = "anim4 3s 1";
+  		}
+  	else {
+  		el1.innerHTML= msg;
+  		el1.style.animation = "anim4 4s 1";
+  		}
+  	console.log(msg,msg_stile)
+  	}
+
+function mossa_valida(){
+	var mossa_ok = false;
+	var d_pedina = info_of(pedina_focus);
+	var d_casella = info_of(casella_focus);
+	var mangiato_in_questa_mossa = false;
+	delta = {"x":d_casella["x"]-d_pedina["x"],"y":d_casella["y"]-d_pedina["y"]}
+	console.log(d_pedina);
+	console.log(d_casella);
+	console.log(delta);
+	console.log("g :"+id_pedina_che_ha_mangiato);
+	// if (casella_focus.className != 'CasellaStile1') {errore("casella non utilizzabile")} basta la regola della diagonale
+	if (d_casella['giocatore'] != "#") {errore("casella non vuota")}
+	else if (Math.abs(delta['y']) != Math.abs(delta['x'])) {errore('i movimenti sono solo in diagonale')}
+	else if ( (id_pedina_che_ha_mangiato == pedina_focus.id) && (Math.abs(delta['y']) == 2) ){
+
+		var id_casella_vittima = 'casella_'+(Number(d_pedina["x"])+Number(delta["x"])/2)+"_"+(Number(d_pedina["y"])+Number(delta["y"])/2);
+		console.log('mangio ulteriore ' + id_casella_vittima + '?');
+		d_vittima = info_of(document.getElementById(id_casella_vittima));
+		console.log(d_vittima);
+		if ((d_vittima['giocatore']+1) % 2 == d_pedina['giocatore']) {
+			console.log(d_pedina['tipo'] + ' vuole mangiare ' + d_vittima['tipo']);
+			if ((d_vittima['contiene'] == 'pedina') || (d_pedina['tipo'] == 'pedone')) {
+				document.getElementById(id_casella_vittima).innerHTML='';
+				g = pedina_focus.id;
+				messaggio("mangiata altra dama");
+				mangiato_in_questa_mossa = true;
+				mancano[d_vittima['giocatore']] = mancano[d_vittima['giocatore']]-1;
+				mossa_ok = true;
+				}
+			else {
+				errore("i damoni possono essere mangiati solo da damoni");
+				mossa_ok = false;
+				}
+			}
+		else {
+			errore('mossa non valida');
+			mossa_ok = false;
+			}
+
+		}
+	else if (tocca_a != d_pedina['giocatore']) {errore("tocca a "+ simboli[tocca_a])}
+	else if (d_pedina['tipo'] == 'pedina' && d_pedina['giocatore'] == 0 && delta['y'] < 0) {errore('la dama non torna indietro')}
+	else if (d_pedina['tipo'] == 'pedina' && d_pedina['giocatore'] == 1 && delta['y'] > 0) {errore('la dama non torna indietro')}
+	else if (Math.abs(delta['y']) == 2) {
+		var id_casella_vittima = 'casella_'+(Number(d_pedina["x"])+Number(delta["x"])/2)+"_"+(Number(d_pedina["y"])+Number(delta["y"])/2);
+		console.log('mangio pedina in ' + id_casella_vittima + '?');
+		d_vittima = info_of(document.getElementById(id_casella_vittima));
+		console.log(d_vittima);
+		if (d_vittima['giocatore'] == (tocca_a +1 ) % 2) {
+			console.log(d_pedina['tipo'] + ' vuole mangiare ' + d_vittima['tipo']);
+			if ((d_vittima['contiene'] == 'pedina') || (d_pedina['tipo'] == 'pedone')) {
+				document.getElementById(id_casella_vittima).innerHTML='';
+				id_pedina_che_ha_mangiato = pedina_focus.id;
+				mangiato_in_questa_mossa = true;
+				messaggio(frasi_mangio[Math.ceil(Math.random()*frasi_mangio.length-1)],"mangio");
+				tocca_a = (tocca_a +1 ) % 2;
+				mancano[d_vittima['giocatore']] = mancano[d_vittima['giocatore']]-1;
+				mossa_ok = true;
+				if (mancano[tocca_a] <1 ){ messaggio("vince " + simboli[(tocca_a +1 ) % 2]+ " !");}
+				}
+			else {
+				errore("i damoni possono essere mangiati solo da damoni");
+				mossa_ok = false;
+				}
+			}
+		else {
+			errore("si muovere di due solo se mangia")
+			}
+		}
+	else if (Math.abs(delta['y']) > 2) {errore("troppo lontano")}
+	else {
+		tocca_a = (tocca_a +1 ) % 2;
+		mossa_ok = true;
+		}
+	if (mossa_ok === true){
+		d_pedina['info'] = "fatta mossa";
+		console.log(d_pedina)
+		if (mancano[tocca_a] <1 ){ messaggio("vince " + simboli[(tocca_a +1 ) % 2]+ " !");}
+		if ((d_pedina['giocatore'] == 0 && d_casella["y"]== 7) || (d_pedina['giocatore'] == 1 && d_casella["y"]== 0)){
+			messaggio("c'è un nuovo damone!");
+			pedina_focus.className = 'PedoneStile' + d_pedina['giocatore'];
+			pedina_focus.id = pedina_focus.id.replace('Pedina','Pedone');
+			}
+		}
+	// else if (mangiato_in_questa_mossa != true){
+	// 	id_pedina_che_ha_mangiato = null;
+	//	}
+	return mossa_ok;
+	}
+
+</script>
+<div id="info">
+
+Gioco della dama per l'uso da parte di due persone su di uno stesso dispositivo
+<h2>cosa manca:</h2>
+<pre>
+- regola del soffiato
+</pre>
+<h2>note di sviluppo</h2>
+<pre>
+ver 0.1 "ci si può giocare"
+	- creazione UI: scacchiera, pedine, stile azioni senza regole: 2h
+	- definizione regole per le damine e mossa "mangia 1": 2h
+	- definizione del damone: 1h
+	- aggiunta della regola che il damone può essere mangiato solo da un damone: 10m
+ver 0.2 "ci si può giocare ovunque"
+	- scelta delle dame (un carattere emoji): 30m
+	- migliorie nella compatibilità sui vari dispositivi: 30m
+ver 0.3 "animazioni css"
+	- messaggi a schermo e frasi casuali 30m
+	- altre animazioni 1h
+ver 0.4 "versione completa"
+	- funziona la mangiata multipla
+	- viene segnalata la vittoria
+	- bug: nella mangiata multipla la dama può tornare indietro!
+</pre>
+</div>
+<div id="messagebox">
+	txt
+</div>
+<div id="modelli">
+	<div id="casella_es" class="CasellaStile1" onclick="scelta_casella(this)">.</div>
+	<div class="CasellaStile2" style="left:100px;"><div id="pedina_es" class="PedinaStile0" onClick="scelta_pedina(this)"></div>
+	<div class="CasellaStile1" style="left:100px;"><div class="PedoneStile0" onClick="scelta_pedina(this)"></div>
+</div>
+</body>
+</html>
